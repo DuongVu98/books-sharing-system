@@ -1,0 +1,25 @@
+version: "3"
+services: 
+  postgres_database:
+    image: postgres:11.5
+    container_name: "postgres_db"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: tungduong98
+      POSTGRES_DB: book_sharing
+    ports:
+      - "5432:5432"
+    networks: 
+      - book_system_network
+  web_server:
+    build: .
+    depends_on:
+      - postgres_database
+    container_name: "nest_server"
+    ports: 
+      - "5001:5000"
+    networks: 
+      - book_system_network
+networks:
+  book_system_network:
+    driver: bridge
