@@ -67,4 +67,31 @@ export class BookService {
         
         return books;
     }
+
+    async findBooksByDepartment(department: string): Promise<Book[]>{
+        const books = await getRepository(Book)
+            .createQueryBuilder('book')
+            .leftJoinAndSelect('book.departments','department')
+            .getMany();
+        
+        return books;
+    }
+
+    async findBooksByTag(tag: string): Promise<Book[]>{
+        const books = await getRepository(Book)
+            .createQueryBuilder('book')
+            .leftJoinAndSelect('book.tags','tag')
+            .getMany();
+        
+        return books;
+    }
+
+    async findBooksByGenre(gerne: string): Promise<Book[]>{
+        const books = await getRepository(Book)
+            .createQueryBuilder('book')
+            .leftJoinAndSelect('book.genres','genre')
+            .getMany();
+        
+        return books;
+    }
 }

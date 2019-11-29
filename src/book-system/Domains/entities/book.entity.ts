@@ -5,6 +5,7 @@ import { type } from "os";
 import { Rating } from "./rating.entity";
 import { Genre } from "./genre.entity";
 import { Tag } from "./tag.entity";
+import { Department } from "./department.entity";
 
 @Entity('book')
 export class Book {
@@ -38,10 +39,14 @@ export class Book {
     @ManyToMany(type => Tag)
     @JoinTable({name: 'book_tag'})
     tags: Tag[];
+
+    @ManyToMany(type => Department, d => d.books)
+    departments: Department[];
 }
 
 export interface BookDTO {
     title: string;
     author: string;
     amount: number;
+    department: Department[];
 }
