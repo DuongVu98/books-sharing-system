@@ -28,7 +28,7 @@ export class UserController implements CrudController<User>{
 
     @Get('search/:search')
     findBooksBySearching(@Param('search') searchString: string){
-        return this.findBookInteractor.getBookBySearchString(searchString);
+        return this.findBookInteractor.getBooksBySearchString(searchString);
     }
 
     @Get('book/:id')

@@ -6,8 +6,7 @@ import { Repository, getRepository } from "typeorm";
 @Injectable()
 export class OrderService {
 
-    constructor(@InjectRepository(Order) private orderRepository: Repository<Order>){
-    }
+    constructor(@InjectRepository(Order) private orderRepository: Repository<Order>){}
 
     async findAllOrder(){
         return await this.orderRepository.find();

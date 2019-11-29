@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { OrderService } from "src/book-system/Domains/repositories/order.service";
 
 @Injectable()
-export class FindOrders {
+export class FindOrdersInteractor {
 
     constructor(private orderService: OrderService){}
 
