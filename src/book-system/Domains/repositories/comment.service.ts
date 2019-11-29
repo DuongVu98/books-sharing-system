@@ -13,23 +13,14 @@ export class CommentService {
         return await this.commentRepository.find();
     }
 
-    async findOrderTypesById(id: string){
-        const comment = await this.commentRepository.findOne({where: id});
-        if(!comment){
-            throw new HttpException('Not found', HttpStatus.NOT_FOUND);
-        }
-
-        return comment;
-    }
-
-    async createOrderType(data: CommentDTO){
+    async createComment(data: CommentDTO){
         const comment = await this.commentRepository.create(data);
         await this.commentRepository.save(comment);
 
         return comment;
     }
 
-    async updateOrderById(id:string, data: Partial<CommentDTO>){
+    async updateComment(id:string, data: Partial<CommentDTO>){
         const comment = await this.commentRepository.findOne({where: id});
         if(!comment){
             throw new HttpException('Not found', HttpStatus.NOT_FOUND);
@@ -39,7 +30,7 @@ export class CommentService {
         return comment;
     }
 
-    async deleteOrderTypeById(id: string){
+    async deleteComment(id: string){
         const comment = await this.commentRepository.findOne({where: id});
         if(!comment){
             throw new HttpException('Not found', HttpStatus.NOT_FOUND);
