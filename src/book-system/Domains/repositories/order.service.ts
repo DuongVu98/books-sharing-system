@@ -8,7 +8,7 @@ export class OrderService {
 
     constructor(@InjectRepository(Order) private orderRepository: Repository<Order>){}
 
-    async findAllOrder(){
+    async findAllOrders(){
         return await this.orderRepository.find();
     }
 
