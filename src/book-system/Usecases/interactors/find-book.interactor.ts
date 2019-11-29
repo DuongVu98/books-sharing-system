@@ -13,13 +13,14 @@ export class FindBookInteractor {
     }
 
     async getBooksBySearchString(searchString: string): Promise<Book[]>{
-        
+
         const booksByName = await this.bookService.findBooksByName(searchString);
         const booksByAuthor = await this.bookService.findBooksByAuthor(searchString);
         const booksByDepartment = await this.bookService.findBooksByDepartment(searchString);
         const booksByTag = await this.bookService.findBooksByTag(searchString);
         const booksByGenre = await this.bookService.findBooksByGenre(searchString);
 
+        // concat function is to merge all the results together without duplication
         return booksByName.concat(booksByAuthor, booksByDepartment, booksByTag, booksByGenre);
     }
 
