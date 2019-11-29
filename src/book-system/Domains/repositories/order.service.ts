@@ -1,7 +1,7 @@
 import { Injectable, HttpStatus, HttpException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Order, OrderDTO } from "../entities/order.entity";
-import { Repository } from "typeorm";
+import { Repository, getRepository } from "typeorm";
 
 @Injectable()
 export class OrderService {
@@ -20,6 +20,24 @@ export class OrderService {
         }
 
         return order;
+    }
+
+    async findOrdersByBook(bookId: string){
+        const orders = await getRepository(Order)
+            .createQueryBuilder('order')
+            .where('order.book_id = :id', {id: bookId})
+            .getMany();
+        
+        return orders;
+    }
+
+    async findOrdersByUser(userId: string){
+        const orders = await getRepository(Order)
+            .createQueryBuilder('order')
+            .where('order.user_id = :id', {id: userId})
+            .getMany();
+        
+        return orders;
     }
 
     async createOrder(data: OrderDTO){
