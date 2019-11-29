@@ -10,4 +10,8 @@ export class EditBookInteractor {
     updateBookChanges(id: string, expectedChange: BookDTO){
         return this.bookService.updateBookById(id, expectedChange);
     }
+
+    deleteBook(bookId: string){
+        return this.bookService.deleteBookById(bookId);
+    }
 }
