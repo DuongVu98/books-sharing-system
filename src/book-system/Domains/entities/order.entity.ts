@@ -23,5 +23,8 @@ export class Order {
 }
 
 export interface OrderDTO {
+    book: Book;
+    user: User;
+    orderType:OrderType;
     bookAmount: number;
 }
