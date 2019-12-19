@@ -9,7 +9,7 @@
     "rules": {
         "quotemark": [
             true,
-            "single"
+            "double"
         ],
         "member-access": [
             false
