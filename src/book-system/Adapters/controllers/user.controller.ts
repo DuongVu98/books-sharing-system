@@ -1,10 +1,13 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Controller, Get, Param, Post, Body, Put, Logger } from "@nestjs/common";
 import { FindBookInteractor } from "src/book-system/Usecases/interactors/find-book.interactor";
 import { GetBookDetailInteractor } from "src/book-system/Usecases/interactors/get-book-detail.interactor";
 import { GetUserProfileInteractor } from "src/book-system/Usecases/interactors/get-user-profile.interactor";
 import { Crud, CrudController } from "@nestjsx/crud";
 import { UserService } from "src/book-system/Domains/repositories/user.service";
 import { User } from "src/book-system/Domains/entities/user.entity";
+import { BookDTO, Book } from "src/book-system/Domains/entities/book.entity";
+import { AddBookInteractor } from "src/book-system/Usecases/interactors/add-book.interactor";
+import { EditBookInteractor } from "src/book-system/Usecases/interactors/edit-book.interactor";
 
 @Crud({
     model: {
@@ -18,6 +21,8 @@ export class UserController implements CrudController<User> {
         private readonly findBookInteractor: FindBookInteractor,
         private readonly getBookDetailInteractor: GetBookDetailInteractor,
         private readonly getUserProfileInteractor: GetUserProfileInteractor,
+        private readonly addBookInteractor: AddBookInteractor,
+        private readonly editBookInteractor: EditBookInteractor,
     ) {}
 
     @Get()
@@ -26,12 +31,12 @@ export class UserController implements CrudController<User> {
     }
 
     @Get("books-list")
-    getBookListForHomePage(){
+    async getBookListForHomePage(): Promise<Book[]>{
         return this.findBookInteractor.getAllBooks();
     }
 
     @Get("search/:search")
-    findBooksBySearching(@Param("search") searchString: string) {
+    async findBooksBySearching(@Param("search") searchString: string): Promise<Book[]> {
         return this.findBookInteractor.getBooksBySearchString(searchString);
     }
 
@@ -43,5 +48,17 @@ export class UserController implements CrudController<User> {
     @Get("profile/:userId")
     getUserProfileDetail(@Param("userId") id: string) {
         return this.getUserProfileInteractor.getUserById(id);
+    }
+
+    @Post("add-book")
+    async addBook(@Body() bookData: Book){
+        Logger.log(bookData);
+        return bookData;
+        // return this.addBookInteractor.addBook(bookData);
+    }
+
+    @Put("edit-book")
+    editBook(@Body() bookData: BookDTO, id: string){
+        return this.editBookInteractor.updateBookChanges(id, bookData);
     }
 }
