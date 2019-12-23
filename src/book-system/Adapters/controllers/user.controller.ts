@@ -6,7 +6,6 @@ import {
     Body,
     Put,
     Logger,
-    Req,
 } from "@nestjs/common";
 import { FindBookInteractor } from "src/book-system/Usecases/interactors/find-book.interactor";
 import { GetBookDetailInteractor } from "src/book-system/Usecases/interactors/get-book-detail.interactor";
@@ -17,8 +16,7 @@ import { User } from "src/book-system/Domains/entities/user.entity";
 import { BookDTO, Book } from "src/book-system/Domains/entities/book.entity";
 import { AddBookInteractor } from "src/book-system/Usecases/interactors/add-book.interactor";
 import { EditBookInteractor } from "src/book-system/Usecases/interactors/edit-book.interactor";
-import * as rawbody from 'raw-body';
-import { request } from "express";
+
 @Crud({
     model: {
         type: User,
