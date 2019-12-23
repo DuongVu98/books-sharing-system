@@ -1,4 +1,13 @@
-import { Controller, Get, Param, Post, Body, Put, Logger } from "@nestjs/common";
+import {
+    Controller,
+    Get,
+    Param,
+    Post,
+    Body,
+    Put,
+    Logger,
+    Req,
+} from "@nestjs/common";
 import { FindBookInteractor } from "src/book-system/Usecases/interactors/find-book.interactor";
 import { GetBookDetailInteractor } from "src/book-system/Usecases/interactors/get-book-detail.interactor";
 import { GetUserProfileInteractor } from "src/book-system/Usecases/interactors/get-user-profile.interactor";
@@ -8,7 +17,8 @@ import { User } from "src/book-system/Domains/entities/user.entity";
 import { BookDTO, Book } from "src/book-system/Domains/entities/book.entity";
 import { AddBookInteractor } from "src/book-system/Usecases/interactors/add-book.interactor";
 import { EditBookInteractor } from "src/book-system/Usecases/interactors/edit-book.interactor";
-
+import * as rawbody from 'raw-body';
+import { request } from "express";
 @Crud({
     model: {
         type: User,
@@ -31,12 +41,14 @@ export class UserController implements CrudController<User> {
     }
 
     @Get("books-list")
-    async getBookListForHomePage(): Promise<Book[]>{
+    async getBookListForHomePage(): Promise<Book[]> {
         return this.findBookInteractor.getAllBooks();
     }
 
     @Get("search/:search")
-    async findBooksBySearching(@Param("search") searchString: string): Promise<Book[]> {
+    async findBooksBySearching(
+        @Param("search") searchString: string,
+    ): Promise<Book[]> {
         return this.findBookInteractor.getBooksBySearchString(searchString);
     }
 
@@ -51,14 +63,13 @@ export class UserController implements CrudController<User> {
     }
 
     @Post("add-book")
-    async addBook(@Body() bookData: Book){
+    async addBook(@Body() bookData: BookDTO) {
         Logger.log(bookData);
-        return bookData;
-        // return this.addBookInteractor.addBook(bookData);
+        return this.addBookInteractor.addBook(bookData);
     }
 
     @Put("edit-book")
-    editBook(@Body() bookData: BookDTO, id: string){
+    editBook(@Body() bookData: BookDTO, id: string) {
         return this.editBookInteractor.updateBookChanges(id, bookData);
     }
 }
