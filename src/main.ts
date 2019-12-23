@@ -7,6 +7,20 @@ import * as helmet from "helmet";
 import * as csurf from "csurf";
 import * as rateLimit from "express-rate-limit";
 
+const corsOptions = {
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true,
+};
+
+// const corsOptions = {
+//     origin: true,
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     allowedHeaders: "Content-Type, Accept",
+// };
+
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
@@ -18,7 +32,8 @@ async function bootstrap() {
             max: 100, // limit each IP to 100 requests per windowMs
         }),
     );
-    app.enableCors();
+
+    app.enableCors(corsOptions);
 
     const options = new DocumentBuilder()
         .setTitle("Books sharing system API")
