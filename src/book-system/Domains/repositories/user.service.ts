@@ -27,7 +27,7 @@ export class UserService extends TypeOrmCrudService<User> {
     async findUserByUsername(username: string) {
         const user = await getRepository(User)
             .createQueryBuilder("user")
-            .where("user.user_name = :username", { username })
+            .where("user.userName = :username", { username })
             .getOne();
 
         return user;
