@@ -25,6 +25,7 @@ import { OrderType } from "./Domains/entities/order-type.entity";
 import { Tag } from "./Domains/entities/tag.entity";
 import { Department } from "./Domains/entities/department.entity";
 import { Genre } from "./Domains/entities/genre.entity";
+import { LoginController } from "./Adapters/controllers/login-temp.controller";
 
 @Module({
     imports: [
@@ -40,7 +41,7 @@ import { Genre } from "./Domains/entities/genre.entity";
             Genre,
         ]),
     ],
-    controllers: [UserController],
+    controllers: [UserController, LoginController],
     providers: [
         UserService,
         BookService,

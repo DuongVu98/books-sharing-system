@@ -1,0 +1,1 @@
+INSERT INTO "user"(user_name, password, email, phone_number, address) VALUES('tony', 'tungduong98', 'tungduongvu@outlook.com', 0973295533, 'Ho Chi Minh city');
