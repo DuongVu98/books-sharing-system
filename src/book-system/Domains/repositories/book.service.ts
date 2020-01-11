@@ -1,7 +1,8 @@
-import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
+import { Injectable, HttpException, HttpStatus, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Book, BookDTO } from "../entities/book.entity";
+import { Book, BookDTO, BookDataRequest } from "../entities/book.entity";
 import { Repository, getRepository } from "typeorm";
+import { User } from "../entities/user.entity";
 
 @Injectable()
 export class BookService {
@@ -94,5 +95,14 @@ export class BookService {
             .getMany();
 
         return books;
+    }
+
+    mapBookInputDataToBookDTO(inputData: BookDataRequest, user: User): BookDTO {
+        return {
+            title: inputData.title,
+            author: inputData.author,
+            amount: inputData.amount,
+            user: user
+        } as BookDTO;
     }
 }

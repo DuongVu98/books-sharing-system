@@ -53,9 +53,17 @@ export class Book {
 }
 
 export interface BookDTO {
+    // new(title: string, author: string, amount: number, user: User, department: Department[]);
+    title: string;
+    author: string;
+    amount: number;
+    user: User;
+    department: Department[];
+}
+
+export interface BookDataRequest {
     title: string;
     author: string;
     amount: number;
     userId: string;
-    department: Department[];
 }

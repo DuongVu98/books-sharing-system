@@ -13,7 +13,7 @@ import { GetUserProfileInteractor } from "src/book-system/Usecases/interactors/g
 import { Crud, CrudController } from "@nestjsx/crud";
 import { UserService } from "src/book-system/Domains/repositories/user.service";
 import { User } from "src/book-system/Domains/entities/user.entity";
-import { BookDTO, Book } from "src/book-system/Domains/entities/book.entity";
+import { BookDTO, Book, BookDataRequest } from "src/book-system/Domains/entities/book.entity";
 import { AddBookInteractor } from "src/book-system/Usecases/interactors/add-book.interactor";
 import { EditBookInteractor } from "src/book-system/Usecases/interactors/edit-book.interactor";
 
@@ -61,8 +61,8 @@ export class UserController implements CrudController<User> {
     }
 
     @Post("add-book")
-    async addBook(@Body() bookData: BookDTO) {
-        Logger.log(bookData);
+    async addBook(@Body() bookData: BookDataRequest) {
+        Logger.log("data from post request: \n"+bookData);
         return this.addBookInteractor.addBook(bookData);
     }
 

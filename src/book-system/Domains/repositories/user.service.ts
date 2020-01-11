@@ -17,7 +17,7 @@ export class UserService extends TypeOrmCrudService<User> {
     }
 
     async findUserById(id: string) {
-        const user = await this.userRepository.findOne({ where: id });
+        const user = await this.userRepository.findOne({ where: {id} });
         if (!user) {
             throw new HttpException("Not found", HttpStatus.NOT_FOUND);
         }

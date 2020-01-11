@@ -1,6 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { BookService } from "src/book-system/Domains/repositories/book.service";
-import { BookDTO } from "src/book-system/Domains/entities/book.entity";
+import {
+    BookDTO,
+    Book,
+    BookDataRequest,
+} from "src/book-system/Domains/entities/book.entity";
 import { UserService } from "src/book-system/Domains/repositories/user.service";
 
 @Injectable()
@@ -10,12 +14,12 @@ export class AddBookInteractor {
         private userService: UserService,
     ) {}
 
-    async addBook(inputData: BookDTO) {
-        await this.bookService.createBook(inputData).then(book => {
-            this.userService.findUserById(inputData.userId).then(user => {
-                user.books.concat(book);
-                return book;
-            });
-        });
+    async addBook(inputData: BookDataRequest) {
+        const user = await this.userService.findUserById(inputData.userId);
+        const bookDto = await this.bookService.mapBookInputDataToBookDTO(
+            inputData,
+            user,
+        );
+        return await this.bookService.createBook(bookDto);
     }
 }
