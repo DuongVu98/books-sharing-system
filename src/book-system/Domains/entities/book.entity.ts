@@ -56,5 +56,6 @@ export interface BookDTO {
     title: string;
     author: string;
     amount: number;
+    userId: string;
     department: Department[];
 }
