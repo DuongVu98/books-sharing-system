@@ -26,6 +26,8 @@ import { Tag } from "./Domains/entities/tag.entity";
 import { Department } from "./Domains/entities/department.entity";
 import { Genre } from "./Domains/entities/genre.entity";
 import { LoginController } from "./Adapters/controllers/login-temp.controller";
+import { UserProfileController } from "./Adapters/controllers/user-profile.controller";
+import { GetUserBooksInteractor } from "./Usecases/interactors/get-user-books.interactor";
 
 @Module({
     imports: [
@@ -41,7 +43,7 @@ import { LoginController } from "./Adapters/controllers/login-temp.controller";
             Genre,
         ]),
     ],
-    controllers: [UserController, LoginController],
+    controllers: [UserController, LoginController, UserProfileController],
     providers: [
         UserService,
         BookService,
@@ -58,6 +60,7 @@ import { LoginController } from "./Adapters/controllers/login-temp.controller";
         EditCommentInteractor,
         OrderBookInteractor,
         FindOrdersInteractor,
+        GetUserBooksInteractor,
     ],
 })
 export class BookSystemModule {}

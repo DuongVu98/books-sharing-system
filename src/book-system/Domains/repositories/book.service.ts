@@ -15,12 +15,21 @@ export class BookService {
     }
 
     async findBookById(id: string) {
-        const book = await this.bookRepository.findOne({ where: id });
+        const book = await this.bookRepository.findOne({ where: {id} });
         if (!book) {
             throw new HttpException("Book not found", HttpStatus.NOT_FOUND);
         }
 
         return book;
+    }
+
+    async findBooksByUser(user: User){
+        const books = await this.bookRepository.find({where: {user}});
+        if (!books) {
+            throw new HttpException("Book not found", HttpStatus.NOT_FOUND);
+        }
+
+        return books;
     }
 
     async createBook(data: BookDTO) {
